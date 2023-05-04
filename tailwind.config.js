@@ -9,7 +9,8 @@ module.exports = {
       colors: {
         light_yellow: "#FFF28B",
         light_pink: "#FFCBF7",
-        light_gray: "#E7E7E7"
+        light_gray: "#E7E7E7",
+        text_gray: "#585858"
       }
     }
   },
