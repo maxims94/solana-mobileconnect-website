@@ -45,7 +45,7 @@ export default function Home() {
           <div className="flex flex-col pt-[75px] mb-[75px] relative">
 
             <div className="absolute h-[374px] mt-[-75px] w-[calc(min(100vw-(100vw-1280px)/2,87.5%))]">
-                <Image src={Waves} className="object-cover" fill />
+                <Image src={Waves} className="object-cover" alt="" fill />
             </div>
 
             <Image src={HeaderPhone} alt="Phone with QR code" className="absolute top-[-20px] right-[calc(max((100vw-1280px)/2,12.5%)-150px)]"/>
@@ -84,12 +84,12 @@ export default function Home() {
           <h1 className="text-5xl leading-normal font-bold mb-[75px] underline decoration-4 decoration-light_yellow">Experience the freedom of wallet integration!</h1>
           <div className="flex flex-row text-2xl text-black">
             <div className="flex flex-col mr-[50px]">
-              <p className="flex flex-row mb-[50px] items-center"><Image src={Star} className="mr-10"/>Keys stay in your mobile wallet</p> 
-              <p className="flex flex-row items-center"><Image src={Star} className="mr-10"/>Higher security</p> 
+              <p className="flex flex-row mb-[50px] items-center"><Image src={Star} alt="" className="mr-10"/>Keys stay in your mobile wallet</p> 
+              <p className="flex flex-row items-center"><Image src={Star} alt="" className="mr-10"/>Higher security</p> 
             </div>
             <div className="flex flex-col">
-              <p className="flex flex-row mb-[50px] items-center"><Image src={Star} className="mr-10"/>No browser extensions</p> 
-              <p className="flex flex-row items-center"><Image src={Star} className="mr-10"/>Greater convenience</p> 
+              <p className="flex flex-row mb-[50px] items-center"><Image src={Star} alt="" className="mr-10"/>No browser extensions</p> 
+              <p className="flex flex-row items-center"><Image src={Star} alt="" className="mr-10"/>Greater convenience</p> 
             </div>
           </div>
         </div>
@@ -125,7 +125,7 @@ export default function Home() {
               <p className="mb-[10px] font-bold">MobileConnect consists of two components: Solana Pay and a server in the background.</p>
               <p className="mb-[10px]">Solana Pay is a firmly established technology that allows users to make transactions via QR code.</p>
               <p className="mb-[10px]">The server is used to temporarily store the transactions that a dApps wants to send. They are retrieved by scanning the QR code.</p>
-              <p className="mb-[10px] font-bold">The advantage of this approach: users don't need to install anything to use MobileConnect -- they can just use their existing mobile wallets!</p>
+              <p className="mb-[10px] font-bold">The advantage of this approach: users don&#39;t need to install anything to use MobileConnect -- they can just use their existing mobile wallets!</p>
               <p className="mb-[10px]">More details <a href="#" className="underline">here</a>.</p>
             </section>
 
@@ -148,7 +148,7 @@ export default function Home() {
 
 
           <div className="relative h-[351px] mt-[-150px] w-full">
-              <Image src={Waves2} className="object-cover" fill />
+              <Image src={Waves2} className="object-cover" alt="" fill />
           </div>
 
         <div className="flex flex-row justify-center text-[#666666] text-xl pt-[100px] pb-[100px]">
@@ -156,13 +156,13 @@ export default function Home() {
             <div>© Solana MobileConnect</div>
             <div className="flex flex-row">
               <Link href="#" target="_blank" className="mr-[20px]">
-                <Image src={GithubIcon} />
+                <Image src={GithubIcon} alt="Github" />
               </Link>
               <Link href="#" target="_blank" className="mr-[20px]">
-                <Image src={TwitterIcon} />
+                <Image src={TwitterIcon} alt="Twitter" />
               </Link>
               <Link href="#" target="_blank">
-                <Image src={EmailIcon} />
+                <Image src={EmailIcon} alt="Email" />
               </Link>
             </div>
           </div>
