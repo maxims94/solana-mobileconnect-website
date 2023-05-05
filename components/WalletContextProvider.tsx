@@ -13,7 +13,11 @@ const WalletContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
       new SolflareWalletAdapter(),
     ]
 
-    const endpoint = web3.clusterApiUrl('devnet')
+    if (!process.env.NEXT_PUBLIC_ALCHEMY_API_KEY) {
+      throw new Error("Alchemy API Key not found")
+    }
+
+    const endpoint = 'https://solana-mainnet.g.alchemy.com/v2/' + process.env.NEXT_PUBLIC_ALCHEMY_API_KEY
 
     return (
         <ConnectionProvider endpoint={endpoint}>

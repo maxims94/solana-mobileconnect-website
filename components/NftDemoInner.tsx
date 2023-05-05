@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import MobileConnectIcon from '@/public/mobileconnect-icon.svg'
-import { Connection, PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js'
+import { Connection, PublicKey, LAMPORTS_PER_SOL, Transaction } from '@solana/web3.js'
 import { useCallback, useEffect, useState, useRef } from 'react'
 
 import { useConnection, useWallet, Wallet } from '@solana/wallet-adapter-react';
@@ -11,6 +11,10 @@ const REQUIRED_WALLET_NAME = "Solflare"
 
 import { EventEmitter } from 'events';
 
+import SolanaNft from '@/public/solana.png'
+import SuperteamDeNft from '@/public/superteamde.png'
+import SuperteamNft from '@/public/superteam.png'
+
 export default function NftDemoInner({ titleEvent }: { titleEvent: EventEmitter }) {
 
   const { connection } = useConnection();
@@ -20,6 +24,8 @@ export default function NftDemoInner({ titleEvent }: { titleEvent: EventEmitter 
   const [balanceStatus, setBalanceStatus] = useState("unknown");
   
   const isTransacting = useRef<boolean>(false);
+
+  const [isGeneratingTx, setIsGeneratingTx] = useState(false);
 
   const onTitleClick = async () => {
     await wallet?.adapter.disconnect()
@@ -56,7 +62,6 @@ export default function NftDemoInner({ titleEvent }: { titleEvent: EventEmitter 
     console.log("Wallet disconnected")
     setBalanceStatus("unknown")
     setBalance(null)
-    //setTxSig('')
   }, [])
 
   useEffect(() => {
@@ -76,53 +81,74 @@ export default function NftDemoInner({ titleEvent }: { titleEvent: EventEmitter 
 
   }, [onConnect, onDisconnect, wallet])
 
-  const mintNft = useCallback(async (key: string) => {
+  // Can't use useCallback because it uses a closure with publicKey
+
+  const mintNft = async (key: string) => {
     
     if(isTransacting.current) {
       alert("Please wait for the previous transaction to complete")
       return
     }
     
+    if(publicKey === null) {
+      alert("Please connect your wallet")
+      return
+    }
+
     isTransacting.current = true;
 
     console.log("Mint NFT...", key)
     
     try {
-      const result = await fetch('/api/mint-nft', {
+      
+      setIsGeneratingTx(true)
+
+      const result = await fetch('/api/mint_nft', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ nftKey: key, mintAddress: publicKey })
+        body: JSON.stringify({ nftKey: key, minterAddress: publicKey.toString() })
       })
+      
+      if (!result.ok) {
+        throw new Error("Error status code received")
+      }
+      
+      setIsGeneratingTx(false)
 
-      const resultParsed = await result.json()
+      const { transaction: serializedTransaction } = await result.json()
       
-      console.log(resultParsed)
+      const transaction = Transaction.from(Buffer.from(serializedTransaction, 'base64'))
       
-      //sendTransaction()
-      /*
+      console.log("Send transaction")
+
+      const sig = await sendTransaction(transaction, connection)
+
+      console.log(sig)
       
-  console.log("Confirm transaction...")
-  const {blockhash, lastValidBlockHeight} = await connection.getLatestBlockhash()
-  const result = await connection.confirmTransaction({ blockhash, lastValidBlockHeight, signature: sig}, "finalized")
-  
-  if(result.value.err === null) {
-    console.log("Transaction confirmed")
-  } else {
-    console.log("Transaction failed: ", result.value.err)
-  }
-  */
+      console.log("Confirm transaction...")
+      const {blockhash, lastValidBlockHeight} = await connection.getLatestBlockhash()
+      const confirmResult = await connection.confirmTransaction({ blockhash, lastValidBlockHeight, signature: sig}, "finalized")
+      
+      if(confirmResult.value.err === null) {
+        console.log("Transaction confirmed")
+      } else {
+        console.log("Transaction failed: ", confirmResult.value.err)
+      }
+
     } catch(error: any) {
+      alert("Error")
       console.error(error)
     } finally {
       isTransacting.current = false;
+      setIsGeneratingTx(false)
     }
 
-  }, [])
+  }
   
-  if(publicKey === null) {
+  if(publicKey === null || wallet === null) {
     return (
       <div className="flex flex-row justify-center pt-[100px] pb-[100px] grow">
         <div className="flex flex-col items-center w-3/4 max-w-screen-xl">
@@ -138,7 +164,7 @@ export default function NftDemoInner({ titleEvent }: { titleEvent: EventEmitter 
     const output = []
 
     const walletName = (wallet as Wallet).adapter.name
-
+    
     if(walletName != REQUIRED_WALLET_NAME) {
       output.push(
         <p key="wrong_wallet">You are using <b>{walletName}</b>. Please use the <b>{REQUIRED_WALLET_NAME}</b> wallet.</p>
@@ -162,20 +188,26 @@ export default function NftDemoInner({ titleEvent }: { titleEvent: EventEmitter 
           )        
         } else {
           output.push(
-            <p key="minting_cost">Minting costs about 0.001 SOL.</p>,
+            <p key="minting_cost">Minting costs about 0.013 SOL.</p>,
             <p key="select">Select an NFT:</p>,
             <div key="nft_row" className="flex flex-row">
-              <div className="p-4 border rounded mr-4 cursor-pointer" onClick={() => mintNft('solana')}>
-                Solana
+              <div className="p-4 mr-4 cursor-pointer hover:drop-shadow-[0_0_8px_#B7D4FF]" onClick={async () => await mintNft('solana')}>
+                <Image src={SolanaNft} alt="Solana" />
               </div>
-              <div className="p-4 border rounded mr-4 cursor-pointer" onClick={() => mintNft('superteam')}>
-                Superteam
+              <div className="p-4 mr-4 cursor-pointer hover:drop-shadow-[0_0_8px_#FFE0C3]" onClick={async () => await mintNft('superteam_de')}>
+                <Image src={SuperteamDeNft} alt="SuperteamDE" />
               </div>
-              <div className="p-4 border rounded cursor-pointer" onClick={() => mintNft('superteam_de')}>
-                Superteam DE
+              <div className="p-4 mr-4 cursor-pointer hover:drop-shadow-[0_0_8px_#E0B9FF]" onClick={async () => await mintNft('superteam')}>
+                <Image src={SuperteamNft} alt="Superteam" />
               </div>
             </div>
           )
+          
+          if(isGeneratingTx) {
+            output.push(
+              <p key="generating_tx">Generating transaction...</p>
+            )
+          }
         }
       }
     }
