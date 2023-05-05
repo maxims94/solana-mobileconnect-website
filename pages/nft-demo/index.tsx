@@ -13,7 +13,14 @@ import WalletContextProvider from '@/components/WalletContextProvider'
 
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui'
 
+import NftDemoInner from '@/components/NftDemoInner'
+
+import { EventEmitter } from 'events';
+
 export default function NftDemo() {
+  
+  const titleEvent = new EventEmitter()
+  
   return (
     <>
       <Head>
@@ -25,9 +32,9 @@ export default function NftDemo() {
 
         <div className="flex flex-col h-screen min-h-[800px]">
 
-          <div className="flex flex-row justify-center pt-[30px] pb-[30px] border">
-            <div className="flex flex-row justify-between flex-nowrap items-center w-3/4 max-w-screen-xl border">
-              <div className="flex flex-row items-center">
+          <div className="flex flex-row justify-center pt-[40px] pb-[40px]">
+            <div className="flex flex-row justify-between flex-nowrap items-center w-3/4 max-w-screen-xl">
+              <div className="flex flex-row items-center cursor-pointer" onClick={() => { titleEvent.emit("titleClick")}}>
                 <Image src={NftDemoLogo} alt="" className="mr-[20px]" />
                 <h1 className="text-4xl">NFT Demo</h1>
               </div>
@@ -35,22 +42,13 @@ export default function NftDemo() {
             </div>
           </div>
 
-          <div className="w-full h-[30px] bg-gradient-to-b from-[#f3f3f3] to-white border-t-1 border-[#ddd]">
+          <div className="w-full h-[30px] bg-gradient-to-b from-[#fafafa] to-white border-t border-[#ddd]">
           </div>
 
-          <div className="flex flex-row justify-center pt-[100px] pb-[100px] grow border">
-            <div className="flex flex-col items-center w-3/4 max-w-screen-xl border">
-              <h1 className="text-4xl mb-[40px]">Step 1</h1>
-              <div>
-                Connect with “Mobile Wallet”
-                <Image src={MobileConnectIcon} className="inline-block ml-[10px]" alt="MobileConnect icon" />
-              </div>
-            </div>
-          </div>
+          <NftDemoInner titleEvent={titleEvent}/>
 
-
-          <div className="flex flex-row justify-center text-[#666666] text-xl pt-[50px] pb-[50px] border">
-            <div className="flex flex-row justify-between flex-nowrap items-center w-3/4 max-w-screen-xl border">
+          <div className="flex flex-row justify-center text-[#666666] text-xl pt-[50px] pb-[50px] border-t border-[#ddd]">
+            <div className="flex flex-row justify-between flex-nowrap items-center w-3/4 max-w-screen-xl">
               <div>© Solana MobileConnect</div>
               <div className="flex flex-row">
                 <Link href="#" target="_blank" className="mr-[20px]">
@@ -80,65 +78,7 @@ export default function NftDemo() {
   const [balanceStatus, setBalanceStatus] = useState("unknown");
   const isTransacting = useRef<boolean>(false);
 
-  const { connection } = useConnection();
-  const { publicKey, sendTransaction, wallet } = useWallet();
 
-  const onConnect = useCallback(async (publicKey: PublicKey) => {
-    console.log("Connected:", publicKey.toString())
-
-    try {
-
-      setBalanceStatus("loading...")
-      const balance = await connection.getBalance(publicKey)
-
-      if (balance >= 1 * LAMPORTS_PER_SOL) {
-
-        setBalanceStatus((balance / LAMPORTS_PER_SOL) + " SOL")
-
-      } else {
-        isTransacting.current = true;
-
-        setBalanceStatus("airdrop...")
-
-        console.log("Request airdrop of 1 SOL...")
-        const signature = await connection.requestAirdrop(publicKey, 1 * LAMPORTS_PER_SOL);
-
-        console.log("Finalize transaction...")
-        await connection.confirmTransaction(signature, "finalized");
-
-        const balance = await connection.getBalance(publicKey)
-        setBalanceStatus((balance / LAMPORTS_PER_SOL) + " SOL")
-        
-        isTransacting.current = false;
-        
-        console.log("Finalized")
-      }
-    } catch (error: any) {
-      console.error(error)
-      setBalanceStatus("error")
-    }
-  }, [connection, setBalanceStatus])
-
-  const onDisconnect = useCallback(() => {
-    console.log("Wallet disconnected")
-    setBalanceStatus("unknown")
-    setTxSig('')
-  }, [setTxSig])
-
-  useEffect(() => {
-
-    if (wallet !== null) {
-      wallet.adapter.on('connect', onConnect)
-      wallet.adapter.on('disconnect', onDisconnect)
-
-      return () => {
-        wallet.adapter.off('connect', onConnect)
-        wallet.adapter.off('disconnect', onDisconnect)
-
-      }
-    }
-
-  }, [onConnect, onDisconnect, wallet])
 
   const sendSol = useCallback((event: any) => {
 

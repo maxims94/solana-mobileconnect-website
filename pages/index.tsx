@@ -151,7 +151,7 @@ export default function Home() {
               <Image src={Waves2} className="object-cover" alt="" fill />
           </div>
 
-        <div className="flex flex-row justify-center text-[#666666] text-xl pt-[100px] pb-[100px]">
+        <div className="flex flex-row justify-center text-[#666666] text-xl pt-[50px] pb-[50px]">
           <div className="flex flex-row justify-between flex-nowrap items-center w-3/4 max-w-screen-xl">
             <div>© Solana MobileConnect</div>
             <div className="flex flex-row">
