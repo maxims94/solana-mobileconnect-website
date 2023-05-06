@@ -11,9 +11,9 @@ const REQUIRED_WALLET_NAME = "Solflare"
 
 import { EventEmitter } from 'events';
 
-import SolanaNft from '@/public/solana.png'
-import SuperteamDeNft from '@/public/superteamde.png'
-import SuperteamNft from '@/public/superteam.png'
+import SolanaNft from '@/public/solana.svg'
+import SuperteamDeNft from '@/public/superteamde.svg'
+import SuperteamNft from '@/public/superteam.svg'
 
 export default function NftDemoInner({ titleEvent }: { titleEvent: EventEmitter }) {
 
@@ -191,13 +191,13 @@ export default function NftDemoInner({ titleEvent }: { titleEvent: EventEmitter 
             <p key="minting_cost">Minting costs about 0.013 SOL.</p>,
             <p key="select">Select an NFT:</p>,
             <div key="nft_row" className="flex flex-row">
-              <div className="p-4 mr-4 cursor-pointer hover:drop-shadow-[0_0_8px_#B7D4FF]" onClick={async () => await mintNft('solana')}>
+              <div className="p-4 mr-4 cursor-pointer hover:drop-shadow-[0_0_8px_#A8CBFF]" onClick={async () => await mintNft('solana')}>
                 <Image src={SolanaNft} alt="Solana" />
               </div>
-              <div className="p-4 mr-4 cursor-pointer hover:drop-shadow-[0_0_8px_#FFE0C3]" onClick={async () => await mintNft('superteam_de')}>
+              <div className="p-4 mr-4 cursor-pointer hover:drop-shadow-[0_0_8px_#FFD4AC]" onClick={async () => await mintNft('superteamde')}>
                 <Image src={SuperteamDeNft} alt="SuperteamDE" />
               </div>
-              <div className="p-4 mr-4 cursor-pointer hover:drop-shadow-[0_0_8px_#E0B9FF]" onClick={async () => await mintNft('superteam')}>
+              <div className="p-4 mr-4 cursor-pointer hover:drop-shadow-[0_0_8px_#D9A8FF]" onClick={async () => await mintNft('superteam')}>
                 <Image src={SuperteamNft} alt="Superteam" />
               </div>
             </div>

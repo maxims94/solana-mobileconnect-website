@@ -13,12 +13,20 @@ type InputData = {
 
 const NFT_DATA: { [index: string]: any } = {
   'solana': {
-    name: 'Solana',
-    metadataUrl: 'https://arweave.net/Hp4NuXXpo6wFGvR9BCXiUb7f5REixy2tVgBnzL2RNCs'
-  }
+    name: 'Solana Logo',
+    metadataUrl: 'https://arweave.net/NF_9xgUNDnw6Wjt52u4rMuLl7aJkNJmBGDnWj8XskY0'
+  },
+  'superteamde': {
+    name: 'SuperteamDE Logo',
+    metadataUrl: 'https://arweave.net/Y6WY4LMM5LXkhTGBQ_zncvBGAUDn7GrQyQXSMtp9LHg'
+  },
+  'superteam': {
+    name: 'Superteam Logo',
+    metadataUrl: 'https://arweave.net/t2UYe2_6s77PUxz21ulJtUF5QoNopdD-91Myw3Cf1BQ'
+  },
 }
 
-const COLLECTION_ADDRESS = 'CfJL6QBTNNsYLY2dBTMSgTDyqBdvDcipb5PjJuVsZNhi'
+const COLLECTION_ADDRESS = '13EA5cGHYqW6nU9Dx7bSkJX4XYafZybcMEdd4sKznPgQ'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") {
@@ -58,9 +66,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const result = await get_nfts_of_collection(COLLECTION_ADDRESS, connection)
 
-    console.log(result)
+    const filteredResult = result.filter(x => x.data.name.startsWith(NFT_DATA[nftKey].name))
     
-    const mintNumber = result.length + 1
+    const mintNumber = filteredResult.length + 1
+
+    console.log("Mint number:", mintNumber)
 
     // Create a transaction to mint a new NFT
 
@@ -96,7 +106,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       primarySaleHappened: true
     })
 
-     transactionBuilder.setFeePayer(new GuestIdentityDriver(minterPublicKey))
+    transactionBuilder.setFeePayer(new GuestIdentityDriver(minterPublicKey))
 
     // Convert to Transaction
     const latestBlockhash = await connection.getLatestBlockhash()
@@ -113,8 +123,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return
 
   } catch (error: any) {
-
-    throw error;
 
     res.status(500).json({ message: String(error) })
     return

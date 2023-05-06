@@ -58,7 +58,7 @@ export default function Home() {
                   <Image src={BorderPart} alt="" className="absolute bottom-0 right-0 rotate-180"/>
                   <h1 className="text-6xl leading-normal font-bold">Use your mobile wallet.<br /><span className="italic">Everywhere.</span></h1>
                 </div>
-                <p className="text-2xl text-text_gray max-w-xl mt-10">MobileConnect allows you to connect your mobile wallet to a dApp that runs on a different device — for example, your desktop computer.</p>
+                <p className="text-2xl text-text_gray max-w-xl mt-10">MobileConnect allows you to use your mobile wallet with a dApp that runs on a different device — for example, your desktop computer.</p>
               </div>
             </div>
 

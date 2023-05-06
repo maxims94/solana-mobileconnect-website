@@ -8,7 +8,7 @@ import {
   PROGRAM_ADDRESS as metaplexProgramId,
 } from "@metaplex-foundation/mpl-token-metadata";
     
-export default async function get_nfts_of_collection(collectionAddress: string, connection: Connection): Promise<string[]> {
+export default async function get_nfts_of_collection(collectionAddress: string, connection: Connection): Promise<Metadata[]> {
 
   const metaplex = new Metaplex(connection);
 
@@ -33,7 +33,6 @@ export default async function get_nfts_of_collection(collectionAddress: string, 
 
   console.log(`Found ${allSignatures.length} signatures`);
   let metadataAddresses: PublicKey[] = [];
-  let mintAddresses = new Set<string>();
 
   console.log("Getting transaction data...");
   const transactions = await connection.getTransactions(allSignatures.map(s => s.signature))
@@ -72,17 +71,16 @@ export default async function get_nfts_of_collection(collectionAddress: string, 
     }
   }
 
+  let resultSet = new Set<Metadata>();
+
   const promises2 = metadataAddresses.map((a) => connection.getAccountInfo(a));
   const metadataAccounts = await Promise.all(promises2);
   for (const account of metadataAccounts) {
     if (account) {
       let metadata = await Metadata.deserialize(account!.data);
-      mintAddresses.add(metadata[0].mint.toBase58());
+      resultSet.add(metadata[0]);
     }
   }
-  let mints: string[] = Array.from(mintAddresses);
   
-  console.log(mints)
-  
-  return mints
+  return Array.from(resultSet);
 }
