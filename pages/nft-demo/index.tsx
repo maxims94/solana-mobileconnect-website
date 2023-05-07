@@ -24,6 +24,7 @@ export default function NftDemo() {
     <>
       <Head>
         <title>Solana MobileConnect - NFT Demo</title>
+        <link rel="shortcut icon" href="/nft-demo-logo.svg" />
       </Head>
 
       <WalletContextProvider>
@@ -35,7 +36,7 @@ export default function NftDemo() {
             <div className="flex flex-row justify-between flex-nowrap items-center w-3/4 max-w-screen-xl">
               <div className="flex flex-row items-center cursor-pointer" onClick={() => { titleEvent.emit("titleClick")}}>
                 <Image src={NftDemoLogo} alt="" className="mr-[20px]" />
-                <h1 className="text-4xl">NFT Demo</h1>
+                <h1 className="text-4xl font-monda font-bold">NFT Demo</h1>
               </div>
               <div><WalletMultiButton /></div>
             </div>
@@ -47,23 +48,25 @@ export default function NftDemo() {
           <NftDemoInner titleEvent={titleEvent}/>
           
           <div>
-            <div>Demo video</div>
-            <div>Learn more</div>
-          </div>
+            <div className="flex flex-row justify-center mb-[25px] font-archivo font-bold text-[#666] hover:text-[#444] tracking-wide text-lg">
+              <a href="/#demo" className="py-3 px-4 border-2 border-[#F0ABDD] mr-[25px] rounded-[10px]" target="_blank">Demo video</a>
+              <a href="/" className="py-3 px-4 border-2 border-[#FFE600] rounded-[10px]" target="_blank">Learn more</a>
+            </div>
 
-          <div className="flex flex-row justify-center text-[#666666] text-xl pt-[50px] pb-[50px] border-t border-[#ddd]">
-            <div className="flex flex-row justify-between flex-nowrap items-center w-3/4 max-w-screen-xl">
-              <div>© Solana MobileConnect</div>
-              <div className="flex flex-row">
-                <Link href="#" target="_blank" className="mr-[20px]">
-                  <Image src={GithubIcon} alt="Github" />
-                </Link>
-                <Link href="#" target="_blank" className="mr-[20px]">
-                  <Image src={TwitterIcon} alt="Twitter" />
-                </Link>
-                <Link href="#" target="_blank">
-                  <Image src={EmailIcon} alt="Email" />
-                </Link>
+            <div className="flex flex-row justify-center text-[#666666] text-xl pt-[50px] pb-[50px] border-t border-[#ddd]">
+              <div className="flex flex-row justify-between flex-nowrap items-center w-3/4 max-w-screen-xl">
+                <div>© Solana MobileConnect</div>
+                <div className="flex flex-row">
+                  <Link href="#" target="_blank" className="mr-[20px]">
+                    <Image src={GithubIcon} alt="Github" />
+                  </Link>
+                  <Link href="#" target="_blank" className="mr-[20px]">
+                    <Image src={TwitterIcon} alt="Twitter" />
+                  </Link>
+                  <Link href="#" target="_blank">
+                    <Image src={EmailIcon} alt="Email" />
+                  </Link>
+                </div>
               </div>
             </div>
           </div>

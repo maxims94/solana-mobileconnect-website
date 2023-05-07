@@ -124,7 +124,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const base64Transaction = serializedTransaction.toString('base64')
 
     console.log(nftName)
-    res.status(200).json({ transaction: base64Transaction, nftName })
+    res.status(200).json({ transaction: base64Transaction, nftName, mintAddress: mintKeypair.publicKey.toString() })
     return
 
   } catch (error: any) {

@@ -35,6 +35,7 @@ export default function NftDemoInner({ titleEvent }: { titleEvent: EventEmitter 
   const [txSig, setTxSig] = useState<string | null>(null);
   const mintNftKey = useRef<string | null>(null);
   const mintNftName = useRef<string | null>(null);
+  const nftMintAddress = useRef<string | null>(null);
 
   const onTitleClick = useCallback(async () => {
     await wallet?.adapter.disconnect()
@@ -129,9 +130,10 @@ export default function NftDemoInner({ titleEvent }: { titleEvent: EventEmitter 
 
       setIsGeneratingTx(false)
 
-      const { transaction: serializedTransaction, nftName } = await result.json()
+      const { transaction: serializedTransaction, nftName, mintAddress } = await result.json()
       
       mintNftName.current = nftName
+      nftMintAddress.current = mintAddress 
       
       // Testing
       //setTxSig("test")
@@ -159,7 +161,7 @@ export default function NftDemoInner({ titleEvent }: { titleEvent: EventEmitter 
     return (
       <div className="flex flex-row justify-center pt-[100px] pb-[100px] grow">
         <div className="flex flex-col items-center w-3/4 max-w-screen-xl">
-          <h1 className="text-4xl mb-[40px]">Step 1</h1>
+          <h1 className="text-5xl mb-[40px] font-monda font-bold">Step 1</h1>
           <div className="text-3xl">
             <p>Connect your mobile <b>Solflare</b> or <b>Glow</b> wallet using <Image src={MobileConnectIcon} className="inline-block ml-2" alt="MobileConnect icon" height={40} /> <b>MobileConnect</b></p>
           </div>
@@ -182,8 +184,8 @@ export default function NftDemoInner({ titleEvent }: { titleEvent: EventEmitter 
       const publicKeyShort = publicKeyString.substring(0, 4) + "..." + publicKeyString.substring(publicKeyString.length - 4);
 
       output.push(
-        <p key="logged_in">Logged in as <b>{publicKeyShort}</b>!</p>,
-        <p key="balance">Your balance: <b>{balanceStatus}</b></p>
+        <p key="logged_in" className="mb-[20px]">Logged in as <b>{publicKeyShort}</b>!</p>,
+        <p key="balance" className="mb-[20px]">Your balance: <b>{balanceStatus}</b></p>
       )
 
       console.log("Wallet name:", walletName)
@@ -195,9 +197,9 @@ export default function NftDemoInner({ titleEvent }: { titleEvent: EventEmitter 
           )
         } else {
           output.push(
-            <p key="minting_cost">Minting costs about {MINTING_COST} SOL.</p>,
-            <p key="select">Select an NFT:</p>,
-            <div key="nft_row" className="flex flex-row">
+            <p key="minting_cost" className="mb-[20px]">Minting costs about {MINTING_COST} SOL.</p>,
+            <p key="select" className="mb-[20px]">Select an NFT:</p>,
+            <div key="nft_row" className="flex flex-row mb-[20px]">
               <div className="p-4 mr-4 cursor-pointer hover:drop-shadow-[0_0_8px_#A8CBFF]" onClick={async () => await mintNft('solana')}>
                 <Image src={SolanaNft} alt="Solana" />
               </div>
@@ -212,7 +214,7 @@ export default function NftDemoInner({ titleEvent }: { titleEvent: EventEmitter 
 
           if (isGeneratingTx) {
             output.push(
-              <p key="generating_tx">Generating transaction...</p>
+              <p key="generating_tx"><b>Generating transaction...</b></p>
             )
           }
         }
@@ -222,7 +224,7 @@ export default function NftDemoInner({ titleEvent }: { titleEvent: EventEmitter 
     return (
       <div className="flex flex-row justify-center pt-[100px] pb-[100px] grow">
         <div className="flex flex-col items-center w-3/4 max-w-screen-xl">
-          <h1 className="text-4xl mb-[40px]">Step 2</h1>
+          <h1 className="text-5xl mb-[40px] font-monda font-bold">Step 2</h1>
           <div className="text-3xl">
             {
               output
@@ -247,20 +249,21 @@ export default function NftDemoInner({ titleEvent }: { titleEvent: EventEmitter 
     return (
       <div className="flex flex-row justify-center pt-[100px] pb-[100px] grow">
         <div className="flex flex-col items-center w-3/4 max-w-screen-xl">
-          <h1 className="text-4xl mb-[40px]">Mint successful!</h1>
-          <p>You now own:</p>
-          <div className="text-3xl relative">
-            {nftImage}
+          <h1 className="text-5xl mb-[40px] font-monda font-bold">Mint successful!</h1>
+          <p className="mb-[20px] text-3xl">You minted:</p>
+          <div className="relative">
+            <Link href={`https://explorer.solana.com/address/${nftMintAddress.current}`} target="_blank">
+              {nftImage}
+            </Link>
             <div className="absolute top-[110px] right-[-60px]">
-              <Link href={`https://explorer.solana.com/tx/${txSig}`} target="_blank">
+              <Link href={`https://explorer.solana.com/address/${nftMintAddress.current}`} target="_blank">
                 <Image src={LinkIcon} alt="Explorer" />
               </Link>
             </div>
           </div>
-          <h1>{mintNftName.current}</h1>
-          <div onClick={() => setTxSig(null)} className="text-3xl cursor-pointer hover:underline">
-            Back
-          </div>
+          <h1 className="text-5xl font-bold mt-[20px] mb-[20px]"><Link href={`https://explorer.solana.com/address/${nftMintAddress.current}`} target="_blank">{mintNftName.current}</Link></h1>
+
+          <div onClick={() => setTxSig(null)} className="text-[18px] text-[#666] cursor-pointer hover:underline">Back</div>
         </div>
       </div>
     )

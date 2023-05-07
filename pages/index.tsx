@@ -29,6 +29,7 @@ export default function Home() {
     <>
       <Head>
         <title>Solana MobileConnect</title>
+        <link rel="shortcut icon" href="/nft-demo-logo.svg" />
       </Head>
       <main>
         <div className="flex flex-col justify-between h-screen min-h-[800px]">
