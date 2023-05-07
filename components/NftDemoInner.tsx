@@ -88,7 +88,7 @@ export default function NftDemoInner({ titleEvent }: { titleEvent: EventEmitter 
       }
     }
 
-  }, [onConnect, onDisconnect, wallet])
+  }, [onConnect, onDisconnect, wallet, titleEvent, onTitleClick])
 
   // Can't use useCallback because it uses a closure with publicKey
 
