@@ -36,9 +36,9 @@ export default function NftDemoInner({ titleEvent }: { titleEvent: EventEmitter 
   const mintNftKey = useRef<string | null>(null);
   const mintNftName = useRef<string | null>(null);
 
-  const onTitleClick = async () => {
+  const onTitleClick = useCallback(async () => {
     await wallet?.adapter.disconnect()
-  }
+  }, [wallet])
 
   const onConnect = useCallback(async (publicKey: PublicKey) => {
     console.log("Connected:", publicKey.toString())

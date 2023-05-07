@@ -44,11 +44,11 @@ export default function Home() {
 
           <div className="flex flex-col pt-[75px] mb-[75px] relative">
 
-            <div className="absolute h-[374px] mt-[-75px] w-[calc(min(100vw-(100vw-1280px)/2,87.5%))]">
+            <div className="absolute h-[374px] mt-[-75px] w-full xl:w-[calc(min(100vw-(100vw-1280px)/2,87.5%))]">
                 <Image src={Waves} className="object-cover" alt="" fill />
             </div>
 
-            <Image src={HeaderPhone} alt="Phone with QR code" className="absolute top-[-20px] right-[calc(max((100vw-1280px)/2,12.5%)-150px)]"/>
+            <Image src={HeaderPhone} alt="Phone with QR code" className="absolute top-[-20px] right-[calc(max((100vw-1280px)/2,12.5%)-150px)] hidden xl:block"/>
 
             <div className="flex flex-row self-center w-3/4 max-w-screen-xl justify-between items-center my-10">
 
@@ -79,7 +79,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="flex flex-col items-center mt-[100px]">
+        <div className="flex flex-col items-center mt-[100px] px-[50px]">
           <h1 className="text-5xl font-ibm-plex-sans leading-normal font-bold mb-[75px] underline decoration-4 decoration-light_yellow">Experience the freedom of wallet integration!</h1>
           <div className="flex flex-row text-2xl text-black tracking-wide font-archivo">
             <div className="flex flex-col mr-[50px]">
