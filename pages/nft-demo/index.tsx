@@ -7,7 +7,6 @@ import TwitterIcon from '@/public/twitter.svg'
 import EmailIcon from '@/public/email.svg'
 
 import NftDemoLogo from '@/public/nft-demo-logo.svg'
-import MobileConnectIcon from '@/public/mobileconnect-icon.svg'
 
 import WalletContextProvider from '@/components/WalletContextProvider'
 
@@ -42,10 +41,15 @@ export default function NftDemo() {
             </div>
           </div>
 
-          <div className="w-full h-[30px] bg-gradient-to-b from-[#fafafa] to-white border-t border-[#ddd]">
+          <div className="w-full h-[40px] bg-gradient-to-b from-[#f5f5f5] to-white border-t border-[#ddd]">
           </div>
 
           <NftDemoInner titleEvent={titleEvent}/>
+          
+          <div>
+            <div>Demo video</div>
+            <div>Learn more</div>
+          </div>
 
           <div className="flex flex-row justify-center text-[#666666] text-xl pt-[50px] pb-[50px] border-t border-[#ddd]">
             <div className="flex flex-row justify-between flex-nowrap items-center w-3/4 max-w-screen-xl">

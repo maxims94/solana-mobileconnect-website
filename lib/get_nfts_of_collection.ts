@@ -75,10 +75,22 @@ export default async function get_nfts_of_collection(collectionAddress: string, 
 
   const promises2 = metadataAddresses.map((a) => connection.getAccountInfo(a));
   const metadataAccounts = await Promise.all(promises2);
-  for (const account of metadataAccounts) {
-    if (account) {
+  
+  for(let i = 0; i < metadataAccounts.length; i++) {
+    const account = metadataAccounts[i]
+
+    if(account) {
+      if(account.lamports == 0) {
+        // Skipping zero balance account (account was burned)
+        continue
+      }
+      console.log(metadataAddresses[i])
+      console.log(account) 
+
       let metadata = await Metadata.deserialize(account!.data);
       resultSet.add(metadata[0]);
+      
+      console.log(metadata[0])
     }
   }
   

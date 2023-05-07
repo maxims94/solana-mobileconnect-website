@@ -5,10 +5,12 @@ import * as web3 from '@solana/web3.js'
 import { PhantomWalletAdapter, SolflareWalletAdapter } from '@solana/wallet-adapter-wallets';
 require('@solana/wallet-adapter-react-ui/styles.css')
 
+import { MobileConnectWalletAdapter } from '@/wallets/mobileconnect-wallet-adapter/adapter'
+
 const WalletContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
     const wallets = [
-      //new QRCodeWalletAdapter(),
+      new MobileConnectWalletAdapter(),
       new PhantomWalletAdapter(),
       new SolflareWalletAdapter(),
     ]

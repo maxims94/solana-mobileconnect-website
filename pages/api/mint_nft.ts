@@ -65,9 +65,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const connection = new Connection(endpoint, 'confirmed')
 
     const result = await get_nfts_of_collection(COLLECTION_ADDRESS, connection)
+    
+    console.log(result)
 
     const filteredResult = result.filter(x => x.data.name.startsWith(NFT_DATA[nftKey].name))
     
+    console.log(filteredResult.map(x => x.data.name))
+
     const mintNumber = filteredResult.length + 1
 
     console.log("Mint number:", mintNumber)
@@ -119,11 +123,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     })
     const base64Transaction = serializedTransaction.toString('base64')
 
-    res.status(200).json({ transaction: base64Transaction })
+    console.log(nftName)
+    res.status(200).json({ transaction: base64Transaction, nftName })
     return
 
   } catch (error: any) {
-
+    throw error;
+    
     res.status(500).json({ message: String(error) })
     return
   }

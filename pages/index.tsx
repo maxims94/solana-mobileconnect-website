@@ -69,7 +69,6 @@ export default function Home() {
           <div className="flex flex-row justify-between flex-nowrap items-center  w-3/4 max-w-screen-xl">
             <div className="flex flex-row flex-start items-center">
               <p className="mr-8">Supported wallets:</p>
-              <Image src={PhantomIcon} alt="Phantom" className="mr-4"/>
               <Image src={GlowIcon} alt="Glow" className="mr-4"/>
               <Image src={SolflareIcon} alt="Solflare" />
             </div>

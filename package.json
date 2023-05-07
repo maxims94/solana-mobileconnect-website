@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@metaplex-foundation/js": "^0.19.1",
+    "@solana/pay": "^0.2.5",
+    "@solana/qr-code-styling": "^1.6.0",
     "@solana/wallet-adapter-base": "^0.9.22",
     "@solana/wallet-adapter-react": "^0.15.32",
     "@solana/wallet-adapter-react-ui": "^0.9.31",
