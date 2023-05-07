@@ -41,7 +41,7 @@ export default function NftDemo() {
             </div>
           </div>
 
-          <div className="w-full h-[40px] bg-gradient-to-b from-[#f5f5f5] to-white border-t border-[#ddd]">
+          <div className="w-full min-h-[40px] h-[40px] bg-gradient-to-b from-[#f5f5f5] to-white border-t border-[#ddd]">
           </div>
 
           <NftDemoInner titleEvent={titleEvent}/>
