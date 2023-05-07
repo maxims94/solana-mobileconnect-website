@@ -103,7 +103,7 @@ export default class QRCodeModal {
     //this._showQr(loginQr, onClose, "Login with QR code", "Supported wallets: Phantom, Solflare, Glow (+ any wallet that supports Solana Pay)")
     
     if(loginQr !== null) {
-      this._showQr(loginQr, onClose, "Login with QR code", "Supported wallets: Phantom, Solflare, Glow")
+      this._showQr(loginQr, onClose, "Login with QR code", "Supported wallets: Solflare, Glow")
     } else {
       this._showQr(loginQr, onClose, "Login with QR code", "Preparing login...")
     }

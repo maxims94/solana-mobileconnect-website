@@ -14,19 +14,19 @@ type InputData = {
 const NFT_DATA: { [index: string]: any } = {
   'solana': {
     name: 'Solana Logo',
-    metadataUrl: 'https://arweave.net/NF_9xgUNDnw6Wjt52u4rMuLl7aJkNJmBGDnWj8XskY0'
+    metadataUrl: 'https://arweave.net/bgDoeN-vLvSc7_zqy8f_amuTyqRTaSjBpx6C1EPHjiY'
   },
   'superteamde': {
     name: 'SuperteamDE Logo',
-    metadataUrl: 'https://arweave.net/Y6WY4LMM5LXkhTGBQ_zncvBGAUDn7GrQyQXSMtp9LHg'
+    metadataUrl: 'https://arweave.net/63000QY-dGzZj8WWOAuOstxrOXsuhqRoZIVLLR1M8Mc'
   },
   'superteam': {
     name: 'Superteam Logo',
-    metadataUrl: 'https://arweave.net/t2UYe2_6s77PUxz21ulJtUF5QoNopdD-91Myw3Cf1BQ'
+    metadataUrl: 'https://arweave.net/ycdLvQ9XtEH3AAJwe2huTPCpLEzjLKRAzvVAnBDn9BU'
   },
 }
 
-const COLLECTION_ADDRESS = '13EA5cGHYqW6nU9Dx7bSkJX4XYafZybcMEdd4sKznPgQ'
+const COLLECTION_ADDRESS = '9k9WSAGoY3zLAaADmZqrTpWmJVtHYcWQqCAfhh8MGdYd'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") {

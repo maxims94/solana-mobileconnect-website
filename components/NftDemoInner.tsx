@@ -146,7 +146,7 @@ export default function NftDemoInner({ titleEvent }: { titleEvent: EventEmitter 
       setTxSig(sig)
 
     } catch (error: any) {
-      alert("Error: " + String(error));
+      alert(String(error));
       console.error(error)
     } finally {
       isTransacting.current = false;
@@ -161,7 +161,7 @@ export default function NftDemoInner({ titleEvent }: { titleEvent: EventEmitter 
         <div className="flex flex-col items-center w-3/4 max-w-screen-xl">
           <h1 className="text-4xl mb-[40px]">Step 1</h1>
           <div className="text-3xl">
-            <p>Connect your mobile <b>Solflare</b> or <b>Glow</b> wallet using <Image src={MobileConnectIcon} className="inline-block ml-2" alt="MobileConnect icon" height={40} /> <b>MobileConnect</b>.</p>
+            <p>Connect your mobile <b>Solflare</b> or <b>Glow</b> wallet using <Image src={MobileConnectIcon} className="inline-block ml-2" alt="MobileConnect icon" height={40} /> <b>MobileConnect</b></p>
           </div>
         </div>
       </div>

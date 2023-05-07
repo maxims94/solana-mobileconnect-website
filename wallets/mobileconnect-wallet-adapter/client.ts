@@ -19,18 +19,19 @@ export default class MobileConnectClient {
   host: string
   cluster: string
   pollInterval: NodeJS.Timeout
+  isPolling: boolean = false
 
   constructor(host: string, cluster: string) {
 
-    if(host === undefined) throw new Error("No host provided")
+    if (host === undefined) throw new Error("No host provided")
 
-    if(cluster === undefined) throw new Error("No cluster provided")
+    if (cluster === undefined) throw new Error("No cluster provided")
 
     this.host = host
 
     this.cluster = cluster
 
-    this.loginCallback = x => {}
+    this.loginCallback = x => { }
 
     this.transactionSessions = {}
 
@@ -45,13 +46,13 @@ export default class MobileConnectClient {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({'cluster': this.cluster})
+      body: JSON.stringify({ 'cluster': this.cluster })
     })
 
     const response = await responseRaw.json()
 
     console.log(response)
-    
+
     this.loginSessionId = response.login_session_id
     this.loginCallback = loginCallback
 
@@ -59,7 +60,7 @@ export default class MobileConnectClient {
 
   // TODO: pass styles
   getLoginQr() {
-    if(!this.loginSessionId)
+    if (!this.loginSessionId)
       throw new Error("No login session id yet")
 
     const url = `${this.host}/user_login?login_session_id=${this.loginSessionId}`
@@ -71,7 +72,7 @@ export default class MobileConnectClient {
     const loginUrl = encodeURL(urlFields)
 
     console.log(loginUrl)
-    
+
     const loginQr = createQR(loginUrl, 350, 'transparent')
 
     return loginQr
@@ -81,7 +82,7 @@ export default class MobileConnectClient {
 
     console.log(transaction)
 
-    const serializedTx = transaction.serialize({requireAllSignatures: false}).toString('base64')
+    const serializedTx = transaction.serialize({ requireAllSignatures: false }).toString('base64')
 
     const responseRaw = await fetch(this.host + '/transaction_session', {
       method: 'POST',
@@ -89,7 +90,7 @@ export default class MobileConnectClient {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({'transaction': serializedTx, 'cluster': this.cluster})
+      body: JSON.stringify({ 'transaction': serializedTx, 'cluster': this.cluster })
     })
 
     const response = await responseRaw.json()
@@ -108,9 +109,9 @@ export default class MobileConnectClient {
   }
 
   getTransactionQr(txSessionId: string) {
-    if(!(txSessionId in this.transactionSessions))
+    if (!(txSessionId in this.transactionSessions))
       throw new Error("Invalid transaction session id")
-    
+
     const url = `${this.host}/get_transaction?transaction_session_id=${txSessionId}`
 
     const urlFields: TransactionRequestURLFields = {
@@ -120,7 +121,7 @@ export default class MobileConnectClient {
     const txUrl = encodeURL(urlFields)
 
     console.log(txUrl)
-    
+
     const txQr = createQR(txUrl, 350, 'transparent')
 
     return txQr
@@ -128,61 +129,73 @@ export default class MobileConnectClient {
 
   async poll() {
 
-    // There is an active login session
-    if(this.loginSessionId) {
+    if (this.isPolling) {
+      console.log("Still polling...")
+      return
+    }
 
-      console.log("Poll login session")
+    this.isPolling = true;
 
-      const responseRaw = await fetch(`${this.host}/login_session?login_session_id=${this.loginSessionId}`)
+    try {
 
-      if (!responseRaw.ok) {
-        console.log("Request failed")
-      } else {
-        const response = await responseRaw.json()
-        console.log(response)
+      // There is an active login session
+      if (this.loginSessionId) {
 
-        if(this.loginSessionId) {
-          if (response['state'] == 'set') {
-            console.log("Logged in as:", response['public_key'])
+        console.log("Poll login session")
 
-            this.loginCallback(response['public_key'])
+        const responseRaw = await fetch(`${this.host}/login_session?login_session_id=${this.loginSessionId}`)
 
-            this.loginSessionId = undefined
+        if (!responseRaw.ok) {
+          console.log("Request failed")
+        } else {
+          const response = await responseRaw.json()
+          console.log(response)
+
+          if (this.loginSessionId) {
+            if (response['state'] == 'set') {
+              console.log("Logged in as:", response['public_key'])
+
+              this.loginCallback(response['public_key'])
+
+              this.loginSessionId = undefined
+            }
           }
+
+        }
+      }
+
+      for (const txSessionId in this.transactionSessions) {
+        const txSession = this.transactionSessions[txSessionId]
+
+        if (txSession.state == "finalized" || txSession.state == "aborted" || ('err' in txSession && txSession.err != null))
+          continue
+
+        // For each active tx session
+
+        console.log(`Poll transaction session ${txSessionId}`)
+
+        const responseRaw = await fetch(`${this.host}/transaction_session?transaction_session_id=${txSessionId}`)
+
+        // The user may have aborted the session
+        if (txSession.state as any == "aborted") {
+          continue
         }
 
+        if (!responseRaw.ok) {
+          console.log("Request failed")
+        } else {
+          const response = await responseRaw.json()
+          console.log(response)
+
+          Object.assign(this.transactionSessions[txSessionId], response)
+
+          console.log(this.transactionSessions[txSessionId])
+
+          this.transactionSessions[txSessionId].stateCallback(this.transactionSessions[txSessionId])
+        }
       }
-    }
-    
-    for(const txSessionId in this.transactionSessions) {
-      const txSession = this.transactionSessions[txSessionId]
-
-      if(txSession.state == "finalized" || txSession.state == "aborted" || ('err' in txSession && txSession.err != null))
-        continue
-
-      // For each active tx session
-      
-      console.log(`Poll transaction session ${txSessionId}`)
-
-      const responseRaw = await fetch(`${this.host}/transaction_session?transaction_session_id=${txSessionId}`)
-      
-      // The user may have aborted the session
-      if (txSession.state as any == "aborted") {
-        continue
-      }
-
-      if (!responseRaw.ok) {
-        console.log("Request failed")
-      } else {
-        const response = await responseRaw.json()
-        console.log(response)
-        
-        Object.assign(this.transactionSessions[txSessionId], response)
-
-        console.log(this.transactionSessions[txSessionId])
-
-        this.transactionSessions[txSessionId].stateCallback(this.transactionSessions[txSessionId])
-      }
+    } finally {
+      this.isPolling = false;
     }
   }
 
@@ -191,7 +204,7 @@ export default class MobileConnectClient {
     // Stop polling
     this.loginSessionId = undefined
     this.transactionSessions = {}
-    
+
     clearInterval(this.pollInterval)
   }
 }
