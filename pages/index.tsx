@@ -152,15 +152,17 @@ export default function Home() {
 
             <section className="mb-[40px]">
               <h2 className="text-[#FF007A] font-bold text-2xl mb-[25px]">How to add it to my dApp?</h2>
-              <p className="mb-[20px]">Install the <a href="#" className="underline">mobileconnect-wallet-adapter</a> package and add it as wallet adapter.</p>
+              <p className="mb-[20px]">Install the <a href="https://www.npmjs.com/package/solana-mobileconnect-wallet-adapter" target="_blank" className="underline">solana-mobileconnect-wallet-adapter</a> package and add it as wallet adapter.</p>
               <p className="mb-[20px] italic">That’s it.</p>
-              <p className="mb-[20px]">More details <a href="#" className="underline">here</a>.</p>
+              <p className="mb-[20px]">More details <a href="https://github.com/Solana-MobileConnect" target="_blank" className="underline">here</a>.</p>
             </section>
 
             <section className="mb-[40px]">
               <h2 className="text-[#FF007A] font-bold text-2xl mb-[25px]">Where can I find the code?</h2>
               <p className="mb-[20px]"><a href="https://github.com/Solana-MobileConnect" target="_blank" className="underline">Overview</a></p>
-              <p className="mb-[20px]"><a href="#" className="underline">NFT Demo</a></p>
+              <p className="mb-[20px]"><a href="https://github.com/Solana-MobileConnect/solana-mobileconnect-website" target="_blank" className="underline">NFT Demo</a></p>
+              <p className="mb-[20px]"><a href="https://github.com/Solana-MobileConnect/solana-crosspay-server" target="_blank" className="underline">Server</a></p>
+              <p className="mb-[20px]"><a href="https://github.com/Solana-MobileConnect/wallet-adapter" target="_blank" className="underline">Wallet adapter</a></p>
             </section>
           </div>
 
