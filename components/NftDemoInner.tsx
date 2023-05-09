@@ -42,7 +42,7 @@ export default function NftDemoInner({ titleEvent }: { titleEvent: EventEmitter 
 
   const [showConfetti, setShowConfetti] = useState<boolean>(false);
 
-  const { screenWidth, screenHeight } = useWindowSize()
+  const { width: screenWidth, height: screenHeight } = useWindowSize()
 
   const onTitleClick = useCallback(async () => {
     await wallet?.adapter.disconnect()
