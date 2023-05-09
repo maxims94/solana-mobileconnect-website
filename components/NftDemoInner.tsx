@@ -20,6 +20,9 @@ import SuperteamNft from '@/public/superteam.svg'
 
 import LinkIcon from '@/public/link-icon.svg'
 
+import Confetti from 'react-confetti'
+import useWindowSize from 'react-use/lib/useWindowSize'
+
 export default function NftDemoInner({ titleEvent }: { titleEvent: EventEmitter }) {
 
   const { connection } = useConnection();
@@ -36,6 +39,10 @@ export default function NftDemoInner({ titleEvent }: { titleEvent: EventEmitter 
   const mintNftKey = useRef<string | null>(null);
   const mintNftName = useRef<string | null>(null);
   const nftMintAddress = useRef<string | null>(null);
+
+  const [showConfetti, setShowConfetti] = useState<boolean>(false);
+
+  const { screenWidth, screenHeight } = useWindowSize()
 
   const onTitleClick = useCallback(async () => {
     await wallet?.adapter.disconnect()
@@ -136,8 +143,9 @@ export default function NftDemoInner({ titleEvent }: { titleEvent: EventEmitter 
       nftMintAddress.current = mintAddress 
       
       // Testing
-      //setTxSig("test")
-      //return
+      setTxSig("test")
+      setShowConfetti(true)
+      return
 
       const transaction = Transaction.from(Buffer.from(serializedTransaction, 'base64'))
 
@@ -146,6 +154,7 @@ export default function NftDemoInner({ titleEvent }: { titleEvent: EventEmitter 
       const sig = await sendTransaction(transaction, connection)
 
       setTxSig(sig)
+      setShowConfetti(true)
 
     } catch (error: any) {
       alert(String(error));
@@ -246,11 +255,28 @@ export default function NftDemoInner({ titleEvent }: { titleEvent: EventEmitter 
       nftImage = <Image src={SuperteamNft} alt="Superteam" />
     }
 
+    if(showConfetti) {
+      setTimeout(() => {setShowConfetti(false)}, 5000)
+    }
+
     return (
-      <div className="flex flex-row justify-center pt-[100px] pb-[100px] grow">
+      <div className="flex flex-row justify-center pt-[100px] pb-[100px] grow relative">
+
+        <div className="absolute top-[-40px] left-0">
+          {
+          showConfetti &&
+          <Confetti
+                width={screenWidth}
+                height={500}
+                initialVelocityY={100}
+                numberOfPieces={200}
+              />
+          }
+        </div>
+
         <div className="flex flex-col items-center w-3/4 max-w-screen-xl">
           <h1 className="text-5xl mb-[40px] font-monda font-bold">Mint successful!</h1>
-          <p className="mb-[20px] text-3xl">You minted:</p>
+          <p className="mb-[20px] text-3xl">You now own:</p>
           <div className="relative">
             <Link href={`https://explorer.solana.com/address/${nftMintAddress.current}`} target="_blank">
               {nftImage}
