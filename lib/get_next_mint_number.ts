@@ -1,6 +1,3 @@
-// Get the mint addresses of all NFTs that are verified members of a Collection NFT
-// See https://github.com/metaplex-foundation/get-collection/blob/main/get-collection-ts/index.ts
-
 import { Connection, Keypair, PublicKey, ConfirmedSignatureInfo } from "@solana/web3.js";
 import { Metaplex, keypairIdentity } from "@metaplex-foundation/js";
 import {
@@ -8,7 +5,9 @@ import {
   PROGRAM_ADDRESS as metaplexProgramId,
 } from "@metaplex-foundation/mpl-token-metadata";
     
-export default async function get_nfts_of_collection(collectionAddress: string, connection: Connection): Promise<Metadata[]> {
+export default async function get_next_mint_number(collectionAddress: string, nftName: string,  connection: Connection): Promise<number> {
+
+  console.log("get_next_mint_number")
 
   const metaplex = new Metaplex(connection);
 
@@ -32,14 +31,14 @@ export default async function get_nfts_of_collection(collectionAddress: string, 
   } while (signatures.length > 0);
 
   console.log(`Found ${allSignatures.length} signatures`);
-  let metadataAddresses: PublicKey[] = [];
 
-  console.log("Getting transaction data...");
-  const transactions = await connection.getTransactions(allSignatures.map(s => s.signature))
+  for (const { signature: sig } of allSignatures) {
+    
+    console.log(`Current tx: ${sig}`)
 
-  for (const tx of transactions) {
+    const tx = await connection.getTransaction(sig)
+
     if (tx) {
-      // console.log(tx.transaction.signatures[0])
       
       let programIds = tx.transaction.message
         .programIds()
@@ -47,6 +46,8 @@ export default async function get_nfts_of_collection(collectionAddress: string, 
       let accountKeys = tx.transaction.message.accountKeys.map((p) =>
         p.toString()
       );
+
+      let metadataAddresses: PublicKey[] = [];
 
       // Only look in transactions that call the Metaplex token metadata program
       if (programIds.includes(metaplexProgramId)) {
@@ -67,32 +68,50 @@ export default async function get_nfts_of_collection(collectionAddress: string, 
           }
         }
       }
+
+      let resultSet = new Set<Metadata>();
+
+      const promises2 = metadataAddresses.map((a) => connection.getAccountInfo(a));
+      const metadataAccounts = await Promise.all(promises2);
       
-    }
-  }
+      for(let i = 0; i < metadataAccounts.length; i++) {
+        const account = metadataAccounts[i]
+        
+        //console.log(metadataAddresses[i])
+        //console.log(account)
 
-  let resultSet = new Set<Metadata>();
+        if(account) {
+          if(account.lamports == 0) {
+            // Skipping non-existing token metadata account (the NFT was probably burned)
+            console.log("Skipping zero balance account: ", metadataAddresses[i].toString())
+            continue
+          }
 
-  const promises2 = metadataAddresses.map((a) => connection.getAccountInfo(a));
-  const metadataAccounts = await Promise.all(promises2);
-  
-  for(let i = 0; i < metadataAccounts.length; i++) {
-    const account = metadataAccounts[i]
-
-    if(account) {
-      if(account.lamports == 0) {
-        // Skipping zero balance account (account was probably burned)
+          let metadata = await Metadata.deserialize(account!.data);
+          resultSet.add(metadata[0]);
+        }
+      }
+      
+      const result = Array.from(resultSet)
+      
+      //console.log(result.map(x => [x.data.name, x.mint.toString()]))
+      
+      if(result.length === 0) {
         continue
       }
-      //console.log(metadataAddresses[i])
-      //console.log(account) 
-
-      let metadata = await Metadata.deserialize(account!.data);
-      resultSet.add(metadata[0]);
       
-      //console.log(metadata[0])
+      const metadataAccountName = result[0].data.name
+      if (metadataAccountName.startsWith(nftName)) {
+        console.log("Found matching NFT name: ", metadataAccountName)
+        const currentMintNumber = parseInt(metadataAccountName.split("#")[1])
+        return currentMintNumber + 1
+      }
+      
     }
+
   }
-  
-  return Array.from(resultSet);
+
+  // Default mint number
+  return 1
+
 }

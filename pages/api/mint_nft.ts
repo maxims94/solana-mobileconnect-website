@@ -3,6 +3,7 @@ import { Connection, PublicKey, LAMPORTS_PER_SOL, Keypair } from '@solana/web3.j
 import { GuestIdentityDriver, keypairIdentity, guestIdentity, Metaplex } from "@metaplex-foundation/js"
 
 import get_nfts_of_collection from '@/lib/get_nfts_of_collection'
+import get_next_mint_number from '@/lib/get_next_mint_number'
 
 import base58 from "bs58"
 
@@ -64,15 +65,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const connection = new Connection(endpoint, 'confirmed')
 
-    const result = await get_nfts_of_collection(COLLECTION_ADDRESS, connection)
-    
-    console.log(result)
-
-    const filteredResult = result.filter(x => x.data.name.startsWith(NFT_DATA[nftKey].name))
-    
-    console.log(filteredResult.map(x => x.data.name))
-
-    const mintNumber = filteredResult.length + 1
+    const mintNumber = await get_next_mint_number(COLLECTION_ADDRESS, NFT_DATA[nftKey].name, connection)
 
     console.log("Mint number:", mintNumber)
 
