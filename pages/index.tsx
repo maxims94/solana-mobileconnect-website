@@ -97,7 +97,7 @@ export default function Home() {
         <div id="demo" className="flex flex-col items-center mt-[100px] bg-gradient-to-b from-[#FF51CA] to-[#FF508F] pt-[100px] pb-[85px]">
           <div className="flex flex-col items-center relative">
             <h1 className="text-white font-monda text-6xl mb-[50px]">In Action</h1>
-            <iframe width="420" height="315" src="https://www.youtube.com/embed/HmZKgaHa3Fg?autoplay=1&mute=1"></iframe> 
+            <iframe className="w-[600px] h-[335px] lg:w-[800px] lg:h-[450px]" src="https://www.youtube.com/embed/t1ed9T6w3Ao?autoplay=1&mute=1"></iframe> 
             <Link href="/nft-demo" className="mt-[50px]" target="_blank">
               <div className="
                 flex flex-row justify-center items-center
@@ -109,7 +109,7 @@ export default function Home() {
                 Start
               </div>
             </Link>
-            <Image src={ActionStars} alt="" className="absolute top-0 right-[-200px]"/>
+            <Image src={ActionStars} alt="" className="absolute top-0 right-[-200px] hidden xl:block"/>
           </div>
         </div>
 
