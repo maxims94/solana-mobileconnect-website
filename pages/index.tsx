@@ -99,7 +99,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="flex flex-col items-center px-[50px] md:hidden">
+        <div className="flex flex-col items-center mt-[100px] px-[50px] md:hidden">
           <h1 className="text-5xl font-ibm-plex-sans leading-normal font-bold mb-[75px] underline decoration-4 decoration-light_yellow">Experience the freedom of wallet integration!</h1>
           <div className="flex flex-col text-2xl text-black tracking-wide font-archivo">
             <p className="flex flex-row mb-[50px] items-center"><Image src={Star} alt="" className="mr-10"/>Keys stay in your mobile wallet</p> 
