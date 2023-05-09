@@ -1,36 +1,74 @@
 {
+
   "name": "solana-mobileconnect-website",
+
   "version": "0.1.0",
+
   "private": true,
+
   "scripts": {
+
     "dev": "next dev",
+
     "build": "next build",
+
     "start": "next start",
+
     "lint": "next lint"
+
   },
+
   "dependencies": {
+
     "@metaplex-foundation/js": "^0.19.1",
+
     "@solana/pay": "^0.2.5",
+
     "@solana/qr-code-styling": "^1.6.0",
+
     "@solana/wallet-adapter-base": "^0.9.22",
+
     "@solana/wallet-adapter-react": "^0.15.32",
+
     "@solana/wallet-adapter-react-ui": "^0.9.31",
+
     "@solana/wallet-adapter-wallets": "^0.19.16",
+
     "@types/node": "18.16.3",
+
     "@types/react": "18.2.0",
+
     "@types/react-dom": "18.2.1",
+
     "bs58": "^5.0.0",
+
     "eslint": "8.39.0",
+
     "eslint-config-next": "13.3.4",
+
     "next": "13.3.4",
+
     "react": "18.2.0",
+
     "react-dom": "18.2.0",
+
     "sharp": "^0.32.1",
+
+    "solana-mobileconnect-wallet-adapter": "^0.1.0",
+
     "typescript": "5.0.4"
+
   },
+
   "devDependencies": {
+
     "autoprefixer": "^10.4.14",
+
     "postcss": "^8.4.23",
+
     "tailwindcss": "^3.3.2"
+
   }
+
 }
+

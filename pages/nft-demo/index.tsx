@@ -48,9 +48,9 @@ export default function NftDemo() {
           <NftDemoInner titleEvent={titleEvent}/>
           
           <div>
-            <div className="flex flex-row justify-center mb-[25px] font-archivo font-bold text-[#666] hover:text-[#444] tracking-wide text-lg">
-              <a href="/#demo" className="py-3 px-4 border-2 border-[#F0ABDD] mr-[25px] rounded-[10px]" target="_blank">Demo video</a>
-              <a href="/" className="py-3 px-4 border-2 border-[#FFE600] rounded-[10px]" target="_blank">Learn more</a>
+            <div className="flex flex-row justify-center mb-[25px] font-archivo font-bold text-[#666] tracking-wide text-lg">
+              <a href="/#demo" className="py-3 px-4 border-2 border-[#F0ABDD] mr-[25px] rounded-[10px] hover:text-[#444]" target="_blank">Demo video</a>
+              <a href="/" className="py-3 px-4 border-2 border-[#FFE600] rounded-[10px] hover:text-[#444]" target="_blank">Learn more</a>
             </div>
 
             <div className="flex flex-row justify-center text-[#666666] text-xl pt-[50px] pb-[50px] border-t border-[#ddd]">
