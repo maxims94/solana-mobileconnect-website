@@ -66,7 +66,8 @@ export default function Home() {
           </div>
 
         </div>
-        <div className="flex flex-row justify-center py-8 border-y border-light_gray text-text_gray text-xl">
+
+        <div className="flex flex-row justify-center py-8 border-y border-light_gray text-text_gray text-xl hidden md:flex">
           <div className="flex flex-row justify-between flex-nowrap items-center w-3/4 max-w-screen-xl font-archivo tracking-wide">
             <div className="flex flex-row flex-start items-center">
               <p className="mr-8">Supported wallets:</p>
@@ -80,7 +81,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="flex flex-col items-center mt-[100px] px-[50px]">
+        <div className="flex flex-col items-center mt-[100px] px-[50px] hidden md:flex">
           <h1 className="text-5xl font-ibm-plex-sans leading-normal font-bold mb-[75px] underline decoration-4 decoration-light_yellow">Experience the freedom of wallet integration!</h1>
           <div className="flex flex-row text-2xl text-black tracking-wide font-archivo">
             <div className="flex flex-col mr-[50px]">
@@ -94,10 +95,20 @@ export default function Home() {
           </div>
         </div>
 
+        <div className="flex flex-col items-center mt-[100px] px-[50px] md:hidden">
+          <h1 className="text-5xl font-ibm-plex-sans leading-normal font-bold mb-[75px] underline decoration-4 decoration-light_yellow">Experience the freedom of wallet integration!</h1>
+          <div className="flex flex-col text-2xl text-black tracking-wide font-archivo">
+            <p className="flex flex-row mb-[50px] items-center"><Image src={Star} alt="" className="mr-10"/>Keys stay in your mobile wallet</p> 
+            <p className="flex flex-row mb-[50px] items-center"><Image src={Star} alt="" className="mr-10"/>Higher security</p> 
+            <p className="flex flex-row mb-[50px] items-center"><Image src={Star} alt="" className="mr-10"/>No browser extensions</p> 
+            <p className="flex flex-row items-center"><Image src={Star} alt="" className="mr-10"/>Greater convenience</p> 
+          </div>
+        </div>
+
         <div id="demo" className="flex flex-col items-center mt-[100px] bg-gradient-to-b from-[#FF51CA] to-[#FF508F] pt-[100px] pb-[85px]">
           <div className="flex flex-col items-center relative">
             <h1 className="text-white font-monda text-6xl mb-[50px]">In Action</h1>
-            <iframe className="w-[600px] h-[335px] lg:w-[800px] lg:h-[450px]" src="https://www.youtube.com/embed/t1ed9T6w3Ao?autoplay=1&mute=1"></iframe> 
+            <iframe className="w-[350px] h-[200px] md:w-[600px] md:h-[335px] lg:w-[800px] lg:h-[450px]" src="https://www.youtube.com/embed/t1ed9T6w3Ao?autoplay=1&mute=1"></iframe> 
             <Link href="/nft-demo" className="mt-[50px]" target="_blank">
               <div className="
                 flex flex-row justify-center items-center
