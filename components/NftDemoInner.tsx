@@ -143,9 +143,9 @@ export default function NftDemoInner({ titleEvent }: { titleEvent: EventEmitter 
       nftMintAddress.current = mintAddress 
       
       // Testing
-      setTxSig("test")
-      setShowConfetti(true)
-      return
+      //setTxSig("test")
+      //setShowConfetti(true)
+      //return
 
       const transaction = Transaction.from(Buffer.from(serializedTransaction, 'base64'))
 
