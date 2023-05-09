@@ -54,10 +54,14 @@ export default function Home() {
             <div className="flex flex-row self-center w-3/4 max-w-screen-xl justify-between items-center my-10">
 
               <div className="flex flex-col">
-                <div className="pt-10 pl-10 pr-7 pb-7 relative">
+                <div className="pt-10 pl-10 pr-7 pb-7 relative hidden md:block">
                   <Image src={BorderPart} alt="" className="absolute top-0 left-0"/>
                   <Image src={BorderPart} alt="" className="absolute bottom-0 right-0 rotate-180"/>
                   <h1 className="text-5xl leading-normal font-bold font-ibm-plex-sans tracking-wide">Use your mobile wallet.<br /><span className="italic">Everywhere.</span></h1>
+                </div>
+
+                <div className="block md:hidden">
+                  <h1 className="text-5xl font-ibm-plex-sans leading-normal font-bold mb-[75px] underline decoration-4 decoration-light_yellow">Use your mobile wallet.<br /><span className="italic">Everywhere.</span></h1>
                 </div>
                 <p className="text-2xl text-text_gray font-archivo max-w-xl mt-10 tracking-wide">MobileConnect allows you to use your mobile wallet with a dApp that runs on a different device — for example, your desktop computer.</p>
               </div>
@@ -95,7 +99,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="flex flex-col items-center mt-[100px] px-[50px] md:hidden">
+        <div className="flex flex-col items-center px-[50px] md:hidden">
           <h1 className="text-5xl font-ibm-plex-sans leading-normal font-bold mb-[75px] underline decoration-4 decoration-light_yellow">Experience the freedom of wallet integration!</h1>
           <div className="flex flex-col text-2xl text-black tracking-wide font-archivo">
             <p className="flex flex-row mb-[50px] items-center"><Image src={Star} alt="" className="mr-10"/>Keys stay in your mobile wallet</p> 
