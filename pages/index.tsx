@@ -138,7 +138,7 @@ export default function Home() {
           <div className="text-xl w-3/4 max-w-screen-xl font-archivo tracking-wide">
             <section className="mb-[40px]">
               <h2 className="text-[#FF007A] font-bold text-2xl mb-[25px]">What is the goal?</h2>
-              <p className="font-bold">Users should always have the option to use their mobile wallet -- no matter where the target dApp is running.</p>
+              <p className="font-bold">Users should always have the option to use their mobile wallet -- no matter where their dApp is running.</p>
             </section>
 
             <section className="mb-[40px]">
