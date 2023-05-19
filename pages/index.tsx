@@ -116,7 +116,7 @@ export default function Home() {
             <Link href="/nft-demo" className="mt-[50px]" target="_blank">
               <div className="
                 flex flex-row justify-center items-center
-                text-white text-[24px] font-archivo tracking-wider
+                text-white text-[24px] font-archivo tracking-wider font-bold
                 w-[120px] h-[50px]
                 bg-gradient-to-t from-[#FF9900] to-[#FFB800]
                 rounded-full drop-shadow-[3px_4px_0_#FF0099] hover:from-[#FF8A00] hover:to-[#FFB800]

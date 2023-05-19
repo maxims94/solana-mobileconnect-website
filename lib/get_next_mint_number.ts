@@ -99,6 +99,8 @@ export default async function get_next_mint_number(collectionAddress: string, nf
       if(result.length === 0) {
         continue
       }
+
+      // Assume it has only one element
       
       const metadataAccountName = result[0].data.name
       if (metadataAccountName.startsWith(nftName)) {

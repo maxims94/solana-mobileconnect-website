@@ -26,7 +26,7 @@ import useWindowSize from 'react-use/lib/useWindowSize'
 export default function NftDemoInner({ titleEvent }: { titleEvent: EventEmitter }) {
 
   const { connection } = useConnection();
-  const { publicKey, sendTransaction, wallet } = useWallet();
+  const { publicKey, sendTransaction, wallet, select } = useWallet();
 
   const [balance, setBalance] = useState<number | null>(null);
   const [balanceStatus, setBalanceStatus] = useState("unknown");
@@ -165,6 +165,10 @@ export default function NftDemoInner({ titleEvent }: { titleEvent: EventEmitter 
     }
 
   }
+  
+  if(wallet === null) {
+    select('MobileConnect' as any)
+  }
 
   if (publicKey === null || wallet === null) {
     return (
@@ -223,7 +227,7 @@ export default function NftDemoInner({ titleEvent }: { titleEvent: EventEmitter 
 
           if (isGeneratingTx) {
             output.push(
-              <p key="generating_tx"><b>Generating transaction...</b></p>
+              <p key="generating_tx"><b>Generating transaction. Please wait...</b></p>
             )
           }
         }
@@ -256,7 +260,7 @@ export default function NftDemoInner({ titleEvent }: { titleEvent: EventEmitter 
     }
 
     if(showConfetti) {
-      setTimeout(() => {setShowConfetti(false)}, 5000)
+      setTimeout(() => {setShowConfetti(false)}, 8000)
     }
 
     return (
