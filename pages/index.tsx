@@ -32,7 +32,7 @@ export default function Home() {
         <link rel="shortcut icon" href="/nft-demo-logo.svg" />
       </Head>
       <main>
-        <div className="flex flex-col justify-between h-screen min-h-[800px]">
+        <div className="flex flex-col justify-between md:h-screen md:min-h-[800px]">
 
           <div className="flex flex-row self-center w-3/4 max-w-screen-xl justify-between items-center my-[75px]">
 
