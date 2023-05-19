@@ -175,9 +175,8 @@ export default function NftDemoInner({ titleEvent }: { titleEvent: EventEmitter 
       <div className="flex flex-row justify-center pt-[100px] pb-[100px] grow">
         <div className="flex flex-col items-center w-3/4 max-w-screen-xl">
           <h1 className="text-5xl mb-[40px] font-monda font-bold">Step 1</h1>
-          <div className="text-3xl leading-loose">
-            <p>Connect your mobile <b>Solflare</b> or <b>Glow</b> wallet using <b className="whitespace-nowrap"><Image src={MobileConnectIcon} className="inline-block ml-2 mr-2" alt="MobileConnect icon" height={40} />MobileConnect</b></p>
-          </div>
+          <p className="text-4xl mb-[20px]">Connect your mobile wallet using <b className="whitespace-nowrap"><Image src={MobileConnectIcon} className="inline-block ml-2 mr-2" alt="MobileConnect icon" height={40} />MobileConnect</b></p>
+          <p className="text-2xl text-gray">Supported wallets: <a href="https://solflare.com/" className="hover:underline pointer" target="_blank">Solflare (recommended)</a>, <a href="https://glow.app/" className="hover:underline pointer" target="_blank">Glow</a>, <a href="https://phantom.app/" className="hover:underline pointer" target="_blank">Phantom</a></p>
         </div>
       </div>
     )
@@ -206,11 +205,12 @@ export default function NftDemoInner({ titleEvent }: { titleEvent: EventEmitter 
       if (balance !== null) {
         if (balance < MINTING_COST) {
           output.push(
-            <p key="insufficient_balance">Insufficient balance. Need to have at least {MINTING_COST} SOL.</p>
+            <p key="insufficient_balance" className="mb-[20px]">Unfortunately, you need at least {MINTING_COST} SOL to mint.</p>,
+            <p key="twitter">If you need some SOL, <a href="https://twitter.com/maximschmidt94" className="underline" target="_blank">send me a DM</a> with your public key.</p>
           )
         } else {
           output.push(
-            <p key="minting_cost" className="mb-[20px]">Minting costs about {MINTING_COST} SOL.</p>,
+            <p key="minting_cost" className="mb-[20px]">Minting cost: around {MINTING_COST} SOL</p>,
             <p key="select" className="mb-[20px]">Select an NFT:</p>,
             <div key="nft_row" className="flex flex-row mb-[20px]">
               <div className="p-4 mr-4 cursor-pointer hover:drop-shadow-[0_0_8px_#A8CBFF]" onClick={async () => await mintNft('solana')}>
