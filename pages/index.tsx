@@ -59,10 +59,10 @@ export default function Home() {
                   <Image src={BorderPart} alt="" className="absolute bottom-0 right-0 rotate-180"/>
                   <h1 className="text-5xl leading-normal font-bold font-ibm-plex-sans tracking-wide">Use your mobile wallet.<br /><span className="italic">Everywhere.</span></h1>
                 </div>
-
-                <div className="block md:hidden">
+                <div className="block md:hidden relative">
                   <h1 className="text-5xl font-ibm-plex-sans leading-normal font-bold mb-[75px] underline decoration-4 decoration-light_yellow">Use your mobile wallet.<br /><span className="italic">Everywhere.</span></h1>
                 </div>
+
                 <p className="text-2xl text-text_gray font-archivo max-w-xl mt-10 tracking-wide">MobileConnect allows you to use your mobile wallet with a dApp that runs on a different device — for example, your desktop computer.</p>
               </div>
             </div>
@@ -71,14 +71,14 @@ export default function Home() {
 
         </div>
 
-        <div className="flex flex-row justify-center py-8 border-y border-light_gray text-text_gray text-xl hidden md:flex">
+        <div className="flex flex-row justify-center py-8 border-y border-light_gray text-text_gray text-xl">
           <div className="flex flex-row justify-between flex-nowrap items-center w-3/4 max-w-screen-xl font-archivo tracking-wide">
             <div className="flex flex-row flex-start items-center">
               <p className="mr-8">Supported wallets:</p>
               <Image src={GlowIcon} alt="Glow" className="mr-4"/>
               <Image src={SolflareIcon} alt="Solflare" />
             </div>
-            <div className="flex flex-row items-center">
+            <div className="flex flex-row items-center hidden md:flex">
               <p className="mr-4">Powered by</p>
               <Image src={SolanaPayIcon} alt="Solana Pay" />
             </div>
