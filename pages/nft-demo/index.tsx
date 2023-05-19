@@ -34,10 +34,12 @@ export default function NftDemo() {
 
           <div className="flex flex-row justify-center pt-[40px] pb-[40px]">
             <div className="flex flex-row justify-between flex-nowrap items-center w-3/4 max-w-screen-xl">
-              <div className="flex flex-row items-center cursor-pointer" onClick={() => { titleEvent.emit("titleClick")}}>
-                <Image src={NftDemoLogo} alt="" className="mr-[20px]" />
-                <h1 className="text-4xl font-monda font-bold">NFT Demo</h1>
-              </div>
+              <a href="/" target="_blank" className="cursor-pointer">
+                <div className="flex flex-row items-center">
+                  <Image src={NftDemoLogo} alt="" className="mr-[20px]" />
+                  <h1 className="text-4xl font-monda font-bold">NFT Demo</h1>
+                </div>
+              </a>
               <div><WalletMultiButton /></div>
             </div>
           </div>
@@ -55,15 +57,15 @@ export default function NftDemo() {
 
             <div className="flex flex-row justify-center text-[#666666] text-xl pt-[50px] pb-[50px] border-t border-[#ddd]">
               <div className="flex flex-row justify-between flex-nowrap items-center w-3/4 max-w-screen-xl">
-                <div>© Solana MobileConnect</div>
+                <div>© <a href="/" className="hover:underline pointer" target="_blank">Solana MobileConnect</a></div>
                 <div className="flex flex-row">
-                  <Link href="#" target="_blank" className="mr-[20px]">
+                  <Link href="https://github.com/Solana-MobileConnect" target="_blank" className="mr-[20px]">
                     <Image src={GithubIcon} alt="Github" />
                   </Link>
-                  <Link href="#" target="_blank" className="mr-[20px]">
+                  <Link href="https://twitter.com/maximschmidt94" target="_blank" className="mr-[20px]">
                     <Image src={TwitterIcon} alt="Twitter" />
                   </Link>
-                  <Link href="#" target="_blank">
+                  <Link href="mailto:maxim.schmidt@tum.de" target="_blank">
                     <Image src={EmailIcon} alt="Email" />
                   </Link>
                 </div>
