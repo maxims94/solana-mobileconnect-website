@@ -175,8 +175,9 @@ export default function NftDemoInner({ titleEvent }: { titleEvent: EventEmitter 
       <div className="flex flex-row justify-center pt-[100px] pb-[100px] grow">
         <div className="flex flex-col items-center w-3/4 max-w-screen-xl">
           <h1 className="text-5xl mb-[40px] font-monda font-bold">Step 1</h1>
-          <p className="text-4xl mb-[20px]">Connect your mobile wallet using <b className="whitespace-nowrap"><Image src={MobileConnectIcon} className="inline-block ml-2 mr-2" alt="MobileConnect icon" height={40} />MobileConnect</b></p>
-          <p className="text-2xl text-gray">Supported wallets: <a href="https://solflare.com/" className="hover:underline cursor-pointer" target="_blank">Solflare (recommended)</a>, <a href="https://glow.app/" className="hover:underline cursor-pointer" target="_blank">Glow</a>, <a href="https://phantom.app/" className="hover:underline cursor-pointer" target="_blank">Phantom</a></p>
+          <p className="text-4xl mb-[20px]">On your desktop, connect your mobile wallet using <b className="whitespace-nowrap"><Image src={MobileConnectIcon} className="inline-block ml-2 mr-2" alt="MobileConnect icon" height={40} />Connect</b></p>
+          <p className="text-2xl text-gray">Supported wallets: <a href="https://solflare.com/" className="hover:underline cursor-pointer" target="_blank">Solflare (recommended)</a>, <a href="https://glow.app/" className="hover:underline cursor-pointer" target="_blank">Glow</a>, <a href="https://phantom.app/" className="hover:underline cursor-pointer" target="_blank">Phantom</a>
+          </p>
         </div>
       </div>
     )

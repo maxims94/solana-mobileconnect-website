@@ -38,7 +38,7 @@ export default function Home() {
 
               <Image src={Logo} alt="Solana MobileConnect" />
               <div className="hidden lg:block font-monda text-[22px] tracking-wide" >
-                <a className="underline decoration-[6px] mr-10 decoration-light_yellow hover:text-black text-[#333]" href="#demo">demo</a>
+                <a className="underline decoration-[6px] mr-10 decoration-light_yellow hover:text-black text-[#333]" href="/nft-demo" target="_blank">demo</a>
                 <a className="underline decoration-[6px] decoration-light_pink hover:text-black text-[#333]" href="#about">about</a>
               </div>
           </div>
