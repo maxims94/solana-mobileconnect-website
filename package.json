@@ -40,6 +40,8 @@
 
     "@types/react-dom": "18.2.1",
 
+    "@vercel/analytics": "^1.0.1",
+
     "bs58": "^5.0.0",
 
     "eslint": "8.39.0",

@@ -1,6 +1,8 @@
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 
+import { Analytics } from '@vercel/analytics/react'
+
 import { IBM_Plex_Sans, Archivo, Monda } from 'next/font/google';
 
 export const ibmPlexSans = IBM_Plex_Sans({
@@ -27,6 +29,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <main className={`${ibmPlexSans.variable} ${archivo.variable} ${monda.variable}`}>
       <Component {...pageProps} />
+      <Analytics />
     </main>
   )
 }
