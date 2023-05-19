@@ -96,21 +96,16 @@ export default async function get_next_mint_number(collectionAddress: string, nf
       
       //console.log(result.map(x => [x.data.name, x.mint.toString()]))
       
-      if(result.length === 0) {
-        continue
-      }
+      for(let i = 0; i < result.length; i++) {
+        const metadataAccountName = result[i].data.name
+        if (metadataAccountName.startsWith(nftName)) {
+          console.log("Found matching NFT name: ", metadataAccountName)
+          const currentMintNumber = parseInt(metadataAccountName.split("#")[1])
+          return currentMintNumber + 1
+        }
 
-      // Assume it has only one element
-      
-      const metadataAccountName = result[0].data.name
-      if (metadataAccountName.startsWith(nftName)) {
-        console.log("Found matching NFT name: ", metadataAccountName)
-        const currentMintNumber = parseInt(metadataAccountName.split("#")[1])
-        return currentMintNumber + 1
       }
-      
     }
-
   }
 
   // Default mint number
