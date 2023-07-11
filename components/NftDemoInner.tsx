@@ -122,13 +122,28 @@ export default function NftDemoInner({ titleEvent }: { titleEvent: EventEmitter 
 
       setIsGeneratingTx(true)
 
+      const mintNumberResult = await fetch('/api/get_next_mint_number', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ nftKey: key })
+      })
+
+      if (!mintNumberResult.ok) {
+        throw new Error("Error status code received")
+      }
+      
+      const { mintNumber } = await mintNumberResult.json()
+
       const result = await fetch('/api/mint_nft', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ nftKey: key, minterAddress: publicKey.toString() })
+        body: JSON.stringify({ nftKey: key, minterAddress: publicKey.toString(), mintNumber: mintNumber })
       })
 
       if (!result.ok) {

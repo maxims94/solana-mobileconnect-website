@@ -9,7 +9,8 @@ import base58 from "bs58"
 
 type InputData = {
   minterAddress: string,
-  nftKey: string
+  nftKey: string,
+  mintNumber: number
 }
 
 const NFT_DATA: { [index: string]: any } = {
@@ -45,7 +46,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       throw new Error("Missing key")
     }
 
-    const { minterAddress, nftKey } = req.body as InputData
+    const { minterAddress, nftKey, mintNumber } = req.body as InputData
 
     console.log("Mint NFT:", minterAddress, nftKey)
 
@@ -59,15 +60,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return
     }
 
+    if (typeof mintNumber !== "number") {
+      res.status(400).json({ message: "Invalid mint number" })
+      return
+    }
+
     const minterPublicKey = new PublicKey(minterAddress)
 
     const endpoint = 'https://solana-mainnet.g.alchemy.com/v2/' + process.env.NEXT_PUBLIC_ALCHEMY_API_KEY
 
     const connection = new Connection(endpoint, 'confirmed')
 
-    const mintNumber = await get_next_mint_number(COLLECTION_ADDRESS, NFT_DATA[nftKey].name, connection)
+    //const mintNumber = await get_next_mint_number(COLLECTION_ADDRESS, NFT_DATA[nftKey].name, connection)
 
-    console.log("Mint number:", mintNumber)
+    console.log("Mint number (passed):", mintNumber)
 
     // Create a transaction to mint a new NFT
 
